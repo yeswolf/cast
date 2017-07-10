@@ -4,8 +4,10 @@
 //
 
 import Foundation
+import ApplicationServices
 class Recorder {
     class func record() -> Void {
+        checkAccessibility()
         let start = CGPoint(x: Config.x, y: Config.y + Config.titleHeight)
         let end = CGPoint(x: Config.right, y: Config.down)
 
@@ -14,7 +16,42 @@ class Recorder {
 
         var error: NSDictionary? = nil
         activateScpt?.executeAndReturnError(&error)
+        print(error!)
         recordScpt?.executeAndReturnError(&error)
+        print(error!)
         Mouse.drag(start: start, end: end)
     }
+    private static func checkAccessibility() {
+        let prompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
+        let dict: CFDictionary = [prompt: true] as CFDictionary
+        AXIsProcessTrustedWithOptions(dict)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
