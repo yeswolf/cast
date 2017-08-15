@@ -2,7 +2,6 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    //    @IBOutlet weak var window: NSWindow!
 
     private var statusBar: NSStatusItem?
 
@@ -10,12 +9,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.setActivationPolicy(.accessory)
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
     override func awakeFromNib() {
-        statusBar = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+        statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusBar?.title = "cast"
         statusBar?.highlightMode = true
         statusBar?.menu = createMenu()

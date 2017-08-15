@@ -9,7 +9,7 @@ class Config {
 	static let titleHeight: CGFloat = 22
 	static let right = x + width
 	static let down = y + height + titleHeight
-	static let processName = "AppCode-EAP"
+	static var processName = "AppCode-EAP"
 
 	static let activateAppCodeScpt = "tell application \"System Events\"\n" +
 			"tell process \"\(processName)\"\n" +

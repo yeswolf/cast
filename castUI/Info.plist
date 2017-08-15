@@ -15,14 +15,12 @@
 			<string></string>
 			<key>CFBundleTypeName</key>
 			<string>DocumentType</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>????</string>
-			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 			<key>NSDocumentClass</key>
-			<string>$(PRODUCT_MODULE_NAME).Document</string>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -43,6 +41,8 @@
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2017 JetBrains. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>

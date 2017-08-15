@@ -5,20 +5,30 @@
 
 import Foundation
 import ApplicationServices
+import AppKit
+
+
 class Recorder {
     class func record() -> Void {
         checkAccessibility()
         let start = CGPoint(x: Config.x, y: Config.y + Config.titleHeight)
         let end = CGPoint(x: Config.right, y: Config.down)
 
+        for app in NSWorkspace.shared.runningApplications {
+            if app.localizedName == "AppCode EAP" || app.localizedName == "AppCode" {
+                Config.processName = app.localizedName!
+            }
+        }
+
         let activateScpt: NSAppleScript? = NSAppleScript(source: Config.activateAppCodeScpt)
         let recordScpt: NSAppleScript? = NSAppleScript(source: Config.recordScpt)
 
         var error: NSDictionary? = nil
         activateScpt?.executeAndReturnError(&error)
-        print(error!)
+
+
+
         recordScpt?.executeAndReturnError(&error)
-        print(error!)
         Mouse.drag(start: start, end: end)
     }
     private static func checkAccessibility() {
