@@ -5,12 +5,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var statusBar: NSStatusItem?
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        NSApp.setActivationPolicy(.accessory)
+    private func checkAccessibility() {
+        let prompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
+        let dict: CFDictionary = [prompt: true] as CFDictionary
+        AXIsProcessTrustedWithOptions(dict)
     }
 
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
+//        checkAccessibility()
+    }
+    
     override func awakeFromNib() {
-        statusBar = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusBar = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         statusBar?.title = "cast"
         statusBar?.highlightMode = true
         statusBar?.menu = createMenu()
@@ -28,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func record() {
         Recorder.record()
     }
+
     @objc func exit() {
         NSApp.terminate(nil)
     }
