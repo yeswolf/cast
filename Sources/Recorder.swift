@@ -7,18 +7,13 @@ import Foundation
 import ApplicationServices
 import AppKit
 
-
 class Recorder {
+    public static var recording = false
+
     class func record() -> Void {
+        Recorder.recording = true
         let start = CGPoint(x: Config.x, y: Config.y + Config.titleHeight)
         let end = CGPoint(x: Config.right, y: Config.down)
-
-        for app in NSWorkspace.shared().runningApplications {
-            if app.localizedName == "AppCode-EAP" || app.localizedName == "AppCode" {
-                Config.processName = app.localizedName!
-                break
-            }
-        }
 
         let activateScpt: NSAppleScript? = NSAppleScript(source: Config.activateAppCodeScpt)
         let recordScpt: NSAppleScript? = NSAppleScript(source: Config.recordScpt)
@@ -30,5 +25,15 @@ class Recorder {
         activateScpt?.executeAndReturnError(&error)
         recordScpt?.executeAndReturnError(&error)
         Mouse.drag(start: start, end: end)
+    }
+
+    class func stop () {
+        Recorder.recording = false
+    }
+
+    class func setup() {
+        let prompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
+        let dict: CFDictionary = [prompt: true] as CFDictionary
+        AXIsProcessTrustedWithOptions(dict)
     }
 }

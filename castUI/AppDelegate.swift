@@ -5,17 +5,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var statusBar: NSStatusItem?
 
-    private func checkAccessibility() {
-        let prompt = kAXTrustedCheckOptionPrompt.takeRetainedValue() as NSString
-        let dict: CFDictionary = [prompt: true] as CFDictionary
-        AXIsProcessTrustedWithOptions(dict)
-    }
+    private var recordItem: NSMenuItem?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.setActivationPolicy(.accessory)
-//        checkAccessibility()
+        print(CommandLine.arguments)
+        if CommandLine.argc > 1 {
+            Config.processName = CommandLine.arguments[1]
+        }
+        Recorder.setup()
     }
-    
+
     override func awakeFromNib() {
         statusBar = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         statusBar?.title = "cast"
@@ -25,10 +25,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func createMenu() -> NSMenu? {
         let menu = NSMenu(title: "cast")
-        let menuItem = NSMenuItem(title: "Record", action: #selector(record), keyEquivalent: "")
-        menu.addItem(menuItem)
+
+        recordItem = NSMenuItem(title: "Record", action: #selector(record), keyEquivalent: "")
+        menu.addItem(recordItem!)
+
         let exitItem = NSMenuItem(title: "Exit", action: #selector(exit), keyEquivalent: "")
         menu.addItem(exitItem)
+
         return menu
     }
 
