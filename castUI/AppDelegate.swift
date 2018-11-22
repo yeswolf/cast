@@ -35,11 +35,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return menu
     }
 
-    @objc func record() {
+    func record() {
         Recorder.record()
     }
 
-    @objc func exit() {
+    func exit() {
         NSApp.terminate(nil)
     }
 }
