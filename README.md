@@ -1,0 +1,1 @@
+Utility application for making screencasts. Small and easy to use. 
